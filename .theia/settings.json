@@ -5,3 +5,7 @@
    "python.linting.flake8Enabled": true,
     "python.terminal.activateEnvironment": false
 }
+{
+   "editor.fontSize": "16px",
+   "editor.wordWrap": "on"
+}

@@ -26,11 +26,34 @@ def show_menu():
     return option
 
 
+def add_record():
+    print("")
+    name = input("What Is Your Full Name?")
+    dob = input("Enter Your DOB --/--/----?")
+    gender = input("Please Enter Your Gender?")
+    hair_colour = input("Enter Your Natural Hair Colour?")
+    occupation = input("What Is Your Current Occupation?")
+    nationality = input("What Is Your Nationality?")
+    food = input("What Is Your Favourite Food?")
+    drink = input("What Is Your Favourite Drink?")
+
+    new_doc = {'name': name.lower(), 'dob': dob, 'gender': gender,
+               'hair_colour': hair_colour, 'occupation': occupation,
+               'nationality': nationality, 'food': food, 'drink': drink}
+
+    try:
+        coll.insert_one(new_doc)
+        print("")
+        print("Document Has Been Processed Into Database")
+    except:
+        print("Access Denied Due To Processing Error")
+
+
 def main_loop():
     while True:
         option = show_menu()
         if option == "1":
-            print("Option 1 Selected")
+            add_record()
         elif option == "2":
             print("Option 2 Selected")
         elif option == "3":

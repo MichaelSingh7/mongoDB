@@ -70,7 +70,6 @@ def add_record():
 
 def find_record():
     doc = get_record()
-
     if doc:
         print("")
         for k, v in doc.items():
@@ -98,6 +97,26 @@ def edit_record():
             print("Error Accessing The Database")
 
 
+def delete_record():
+    doc = get_record()
+    if doc:
+        print("")
+        for k, v in doc.items():
+            if k != "_id":
+                print(k.capitalize() + ": " + v.capitalize())
+
+        print("")
+        confirmation = input("File Selected To Be Removed From Database?\nY or N ")
+        print("")
+
+        if confirmation.lower() == 'y':
+            try:
+                coll.delete_one(doc)
+                print("File Selected Has Now Been Removed")
+            except:
+                print("Error Accessing The Database")
+            else:
+                print("File Selected Not Removed Due To Invalid Input")
 
 
 def main_loop():
@@ -110,7 +129,7 @@ def main_loop():
         elif option == "3":
             edit_record()
         elif option == "4":
-            print("Option 4 Selected")
+            delete_record()
         elif option == "5":
             conn.close()
             break

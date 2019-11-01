@@ -14,6 +14,7 @@ def mongo_connect(url):
     except pymongo.errors.ConnectionFailure as e:
         print("Could Not Connect To MongoDB: %s") % e
 
+
 def show_menu():
     print("")
     print("1. Add A Record")
@@ -69,11 +70,34 @@ def add_record():
 
 def find_record():
     doc = get_record()
+
     if doc:
         print("")
         for k, v in doc.items():
             if k != "_id":
                 print(k.capitalize() + ": " + v.capitalize())
+
+
+def edit_record():
+    doc = get_record()
+    if doc:
+        update_doc = {}
+        print("")
+        for k, v in doc.items():
+            if k != "_id":
+                update_doc[k] = input(k.capitalize() + " [" + v + "] > ")
+
+                if update_doc[k] == "":
+                    update_doc[k] = v
+
+        try:
+            coll.update_one(doc, {'$set': update_doc})
+            print("")
+            print("Document Updated")
+        except:
+            print("Error Accessing The Database")
+
+
 
 
 def main_loop():
@@ -84,7 +108,7 @@ def main_loop():
         elif option == "2":
             find_record()
         elif option == "3":
-            print("Option 3 Selected")
+            edit_record()
         elif option == "4":
             print("Option 4 Selected")
         elif option == "5":

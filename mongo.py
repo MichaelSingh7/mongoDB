@@ -1,7 +1,8 @@
 import pymongo
 import os
+import env
 
-MONGODB_URI = os.getenv("MONGO_URI")
+MONGODB_URI = os.getenv("MONGO_URI", 'No ENV Value')
 DBS_NAME = "test"
 COLLECTION_NAME = "myTestDB"
 
@@ -19,10 +20,8 @@ conn = mongo_connect(MONGODB_URI)
 
 coll = conn[DBS_NAME][COLLECTION_NAME]
 
-coll.update_many({'nationality': 'american'},
-                 {'$set': {'occupation': 'musician'}})
-
-documents = coll.find({'nationality': 'american'})
+coll.update_one({'last': 'singh'}, {'$set': {'last': 'tariq'}})
+documents = coll.find()
 
 for doc in documents:
     print(doc)

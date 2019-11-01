@@ -1,7 +1,8 @@
 import pymongo
 import os
+import env
 
-MONGODB_URI = os.getenv("MONGO_URI")
+MONGODB_URI = os.getenv("MONGO_URI", 'No ENV Value')
 DBS_NAME = "test"
 COLLECTION_NAME = "myTestDB"
 
@@ -12,7 +13,6 @@ def mongo_connect(url):
         return conn
     except pymongo.errors.ConnectionFailure as e:
         print("Could Not Connect To MongoDB: %s") % e
-
 
 def show_menu():
     print("")
